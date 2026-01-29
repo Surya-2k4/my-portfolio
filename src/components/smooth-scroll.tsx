@@ -14,11 +14,9 @@ function SmoothScroll({ children, isInsideModal = false }: LenisProps) {
   });
 
   useEffect(() => {
-    document.addEventListener("DOMContentLoaded", () => {
-      lenis?.stop();
-      lenis?.start();
-    });
-  }, []);
+    lenis?.stop();
+    lenis?.start();
+  }, [lenis]);
 
   return (
     <ReactLenis
