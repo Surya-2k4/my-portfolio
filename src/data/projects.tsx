@@ -5,7 +5,7 @@ import { TypographyH3, TypographyP } from "@/components/ui/typography";
 import { ArrowDownUpIcon, ArrowUpRight, ExternalLink, Link2, MoveUpRight } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
-import { ReactNode } from "react";
+import React, { ReactNode } from "react";
 import { RiNextjsFill, RiNodejsFill, RiReactjsFill } from "react-icons/ri";
 import {
   SiChakraui,
@@ -244,7 +244,7 @@ const PROJECT_SKILLS = {
     title: "OpenAI",
     bg: "black",
     fg: "white",
-    icon: <img src="assets/icons/openai-svgrepo-com_white.svg" alt="OpenAI" />,
+    icon: <Image src="/assets/icons/openai-svgrepo-com_white.svg" alt="OpenAI" width={20} height={20} />,
   },
   netlify: {
     title: "Netlify",
@@ -280,7 +280,7 @@ const PROJECT_SKILLS = {
     title: "Java",
     bg: "black",
     fg: "white",
-    icon: <img src="assets/icons/icons8-java.svg" alt="Java" />,
+    icon: <Image src="/assets/icons/icons8-java.svg" alt="Java" width={20} height={20} />,
   },
   cplusplus: {
     title: "C++",
@@ -298,13 +298,13 @@ const PROJECT_SKILLS = {
     title: "Flutter",
     bg: "black",
     fg: "white",
-    icon: <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/flutter/flutter-original.svg" alt="Flutter" className="w-5 h-5" />,
+    icon: <Image src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/flutter/flutter-original.svg" alt="Flutter" className="w-5 h-5" width={20} height={20} />,
   },
   dart: {
     title: "Dart",
     bg: "black",
     fg: "white",
-    icon: <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/dart/dart-original.svg" alt="Dart" className="w-5 h-5" />,
+    icon: <Image src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/dart/dart-original.svg" alt="Dart" className="w-5 h-5" width={20} height={20} />,
   },
   firebase_rtdb: {
     title: "Firebase RTDB",
