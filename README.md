@@ -1,14 +1,12 @@
-![Portfolio Preview](https://github.com/Abhiz2411/3D-interactive-portfolio/blob/main/public/assets/seo/og-image.png?raw=true)
+![Portfolio Preview](https://github.com/Surya-2k4/my-portfolio/blob/main/public/assets/seo/og-image.png?raw=true)
 
-# 🚀 My Portfolio Website
+# 🚀 Surya's Portfolio Website
 
 Welcome to the repository for my personal portfolio website! 🎉 This project is a culmination of creativity, technology, and my dedication to showcasing my skills, projects, and personality in a visually stunning and interactive manner.
 
-### Live preview: https://www.abhijitzende.com/
+### Live preview: https://my-portfolio-surya.vercel.app/ (Replace with your actual Vercel URL)
 
-![Preview](https://github.com/Abhiz2411/3D-interactive-portfolio/blob/main/public/assets/preview_video.gif?raw=true)
-
-https://github.com/Abhiz2411/3D-interactive-portfolio/blob/main/preview_video.mp4
+![Preview](https://github.com/Surya-2k4/my-portfolio/blob/main/public/assets/preview_video.gif?raw=true)
 
 This project is **inspired** by the amazing work of [Naresh Khatri](https://github.com/Naresh-Khatri/Portfolio). His innovative approach to web design and attention to detail has been a huge influence. Thank you, Naresh! 🙏
 
@@ -43,18 +41,18 @@ The portfolio website is built using the following tools and technologies:
 
 - **Frontend:** Next.js, React, Tailwind CSS, Shadcn, Aceternity UI
 - **Animations:** GSAP, Framer Motion, Spline Runtime
-- **Other Tools:** Resend, Socket.io, Zod
+- **Communication:** WhatsApp Integration
 
 ## 🌟 Getting Started
 
 1. Clone this repository:
    ```bash
-   git clone https://github.com/Abhiz2411/3D-interactive-portfolio.git
+   git clone https://github.com/Surya-2k4/my-portfolio.git
    ```
 
 2. Navigate to the project directory:
    ```bash
-   cd 3D-interactive-portfolio
+   cd my-portfolio
    ```
 
 3. Install dependencies:
@@ -62,40 +60,19 @@ The portfolio website is built using the following tools and technologies:
    npm install
    ```
 
-4. Set up environment variables:
-   ```bash
-   # Create a .env.local file in the root directory
-   touch .env.local
-
-   # Add your Resend API key
-   RESEND_API_KEY=your_resend_api_key_here
-   ```
-
-5. Start the development server:
+4. Start the development server:
    ```bash
    npm run dev
    ```
 
-6. Open your browser and navigate to:
+5. Open your browser and navigate to:
    ```
    http://localhost:3000
    ```
 
 ## 🚀 Deployment
 
-This project is deployed using **Vercel** for its blazing-fast performance and ease of use. You can view the live site [here](https://www.abhijitzende.com/).
-
-### Setting up Resend API on Vercel
-
-1. Sign up for a [Resend](https://resend.com) account and get your API key
-2. Go to your Vercel project settings
-3. Navigate to the "Environment Variables" section
-4. Add a new environment variable:
-   - Name: `RESEND_API_KEY`
-   - Value: Your Resend API key
-5. Save the changes and redeploy your application
-
-Note: Make sure to keep your API key secret and never commit it to your repository.
+This project is deployed using **Vercel** for its blazing-fast performance and ease of use. You can view the live site [here](https://my-portfolio-surya.vercel.app/).
 
 ## 💖 Acknowledgments
 
@@ -105,8 +82,9 @@ A huge shoutout to [Naresh Khatri](https://github.com/Naresh-Khatri/Portfolio) f
 
 Feel free to reach out to me for collaboration, feedback, or just to say hi! 😊
 
-- **Email:** abhijitzende75@gmail.com
-- **LinkedIn:** [Your LinkedIn Profile](https://www.linkedin.com/in/zende-abhijit/)
+- **Email:** suryanatarajan04@gmail.com
+- **LinkedIn:** [Surya Natarajan](https://www.linkedin.com/in/surya-2k4/)
+- **GitHub:** [Surya-2k4](https://github.com/Surya-2k4/)
 
 ---
 
