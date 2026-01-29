@@ -318,6 +318,24 @@ const PROJECT_SKILLS = {
     fg: "white",
     icon: <SiJavascript />,
   },
+  convex: {
+    title: "Convex",
+    bg: "black",
+    fg: "white",
+    icon: <Image src="https://images.opencollective.com/convex/0d6863d/logo/256.png" alt="Convex" width={20} height={20} />,
+  },
+  clerk: {
+    title: "Clerk",
+    bg: "black",
+    fg: "white",
+    icon: <Image src="https://pbs.twimg.com/profile_images/1691811808003444736/Uo5E2g0i_400x400.jpg" alt="Clerk" width={20} height={20} />,
+  },
+  gemini: {
+    title: "Gemini AI",
+    bg: "black",
+    fg: "white",
+    icon: <Image src="https://www.gstatic.com/lamda/images/favicon_v2_192x192.png" alt="Gemini" width={20} height={20} />,
+  },
 };
 export type Project = {
   id: string;
@@ -514,6 +532,55 @@ const projects: Project[] = [
             <li><strong>Google Sheets Sync:</strong> Automated storage in cloud spreadsheets for easy management.</li>
             <li><strong>PDF Exporting:</strong> Generate and download PDF records of student entries.</li>
             <li><strong>Record Filtering:</strong> Filter entries by date using an intuitive date picker.</li>
+          </ul>
+          <SlideShow images={this.screenshots} />
+        </div>
+      );
+    },
+  },
+  {
+    id: "aipdfnotes",
+    category: "AI & Productivity",
+    title: "AI PDF Note Taker",
+    src: "https://raw.githubusercontent.com/Surya-2k4/AI-PDF-Note-Taker/main/images/workspace.png",
+    screenshots: [
+      "https://raw.githubusercontent.com/Surya-2k4/AI-PDF-Note-Taker/main/images/landing.png",
+      "https://raw.githubusercontent.com/Surya-2k4/AI-PDF-Note-Taker/main/images/dashboard.png",
+      "https://raw.githubusercontent.com/Surya-2k4/AI-PDF-Note-Taker/main/images/workspace.png",
+      "https://raw.githubusercontent.com/Surya-2k4/AI-PDF-Note-Taker/main/images/saved-notes.png",
+      "https://raw.githubusercontent.com/Surya-2k4/AI-PDF-Note-Taker/main/images/payment-detail.png",
+    ],
+    skills: {
+      frontend: [
+        PROJECT_SKILLS.next,
+        PROJECT_SKILLS.tailwind,
+        PROJECT_SKILLS.shadcn,
+      ],
+      backend: [
+        PROJECT_SKILLS.convex,
+        PROJECT_SKILLS.clerk,
+        PROJECT_SKILLS.gemini,
+      ],
+    },
+    live: "https://github.com/Surya-2k4/AI-PDF-Note-Taker",
+    github: "https://github.com/Surya-2k4/AI-PDF-Note-Taker",
+    get content() {
+      return (
+        <div>
+          <TypographyP className="font-mono text-2xl text-center">
+            AI PDF Note Taker 🧠📄
+          </TypographyP>
+          <TypographyP className="font-mono ">
+            A sophisticated AI-powered document intelligence platform that transforms static PDFs into interactive workspaces. Users can chat with their documents, generate summaries, and maintain persistent notes using the Gemini API.
+          </TypographyP>
+          <ProjectsLinks live={this.live} repo={this.github} />
+          <TypographyH3 className="my-4 mt-8">Key Features</TypographyH3>
+          <ul className="list-disc ml-6 font-mono mb-4">
+            <li><strong>Intelligent Q&A:</strong> Ask context-aware questions about any PDF using Google Gemini.</li>
+            <li><strong>AI Workspace:</strong> Split-pane view with a full-featured text editor and PDF viewer.</li>
+            <li><strong>Persistence:</strong> Real-time data sync and storage powered by Convex DB.</li>
+            <li><strong>Monetization:</strong> Integrated PayPal payment system for premium features.</li>
+            <li><strong>Security:</strong> Enterprise-grade authentication via Clerk.</li>
           </ul>
           <SlideShow images={this.screenshots} />
         </div>
