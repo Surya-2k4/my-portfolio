@@ -13,7 +13,6 @@ import { FloatingDock } from "../ui/floating-dock";
 import Link from "next/link";
 import { motion, useScroll, useTransform } from "framer-motion";
 
-import SmoothScroll from "../smooth-scroll";
 import projects, { Project } from "@/data/projects";
 import { cn } from "@/lib/utils";
 
@@ -91,7 +90,7 @@ const Modall = ({ project }: { project: Project }) => {
   return (
     <div className="flex items-center justify-center w-full h-full">
       <Modal>
-        <ModalTrigger className="bg-transparent flex justify-center group/modal-btn w-full p-0">
+        <ModalTrigger className="bg-transparent flex justify-center group/modal-btn w-full p-0 border-none">
           <div
             className="relative w-full aspect-[16/9] md:aspect-[21/9] rounded-3xl overflow-hidden shadow-2xl border border-black/5 dark:border-white/10 group/card bg-white dark:bg-zinc-900"
           >
@@ -104,7 +103,7 @@ const Modall = ({ project }: { project: Project }) => {
             />
             {/* Overlay */}
             <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/40 to-transparent opacity-100 transition-opacity duration-500">
-              <div className="flex flex-col h-full items-start justify-end p-8 md:p-12">
+              <div className="flex flex-col h-full items-start justify-end p-8 md:p-12 text-left">
                 <motion.div
                   initial={{ opacity: 0, x: -20 }}
                   whileInView={{ opacity: 1, x: 0 }}
@@ -124,18 +123,13 @@ const Modall = ({ project }: { project: Project }) => {
                 </motion.div>
               </div>
             </div>
-
-            {/* Glass effect on hover */}
-            <div className="absolute inset-0 bg-white/10 dark:bg-black/10 opacity-0 group-hover/card:opacity-100 transition-opacity duration-500 pointer-events-none" />
           </div>
         </ModalTrigger>
         <ModalBody className="md:max-w-5xl md:max-h-[85vh]">
-          <SmoothScroll isInsideModal={true}>
-            <ModalContent>
-              <ProjectContents project={project} />
-            </ModalContent>
-          </SmoothScroll>
-          <ModalFooter className="gap-4 border-t border-black/5 dark:border-white/10 bg-white/80 dark:bg-zinc-950/80 backdrop-blur-md">
+          <ModalContent>
+            <ProjectContents project={project} />
+          </ModalContent>
+          <ModalFooter className="gap-4 border-t border-black/5 dark:border-white/10 bg-white/80 dark:bg-zinc-950/80 backdrop-blur-md sticky bottom-0 z-50">
             <ModalFooterButtons project={project} />
           </ModalFooter>
         </ModalBody>
@@ -149,7 +143,10 @@ const ModalFooterButtons = ({ project }: { project: Project }) => {
   return (
     <>
       <button
-        onClick={() => setOpen(false)}
+        onClick={(e) => {
+          e.stopPropagation();
+          setOpen(false);
+        }}
         className="px-6 py-2 bg-neutral-100 text-black dark:bg-zinc-800 dark:text-white border border-black/5 dark:border-white/10 rounded-xl text-sm font-bold hover:bg-neutral-200 dark:hover:bg-zinc-700 transition-colors shadow-sm"
       >
         Close
@@ -175,44 +172,33 @@ const ProjectContents = ({ project }: { project: Project }) => {
         <div className="w-20 h-2 bg-blue-500 rounded-full" />
       </div>
 
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-12">
-        <div className="space-y-8">
-          <div className="space-y-3">
-            <h5 className="text-sm font-black uppercase tracking-widest text-blue-500">Tech Stack</h5>
-            <div className="flex flex-col gap-6 pt-2">
-              <div className="flex flex-wrap items-center gap-4 bg-slate-50 dark:bg-zinc-900/50 p-6 rounded-2xl border border-black/5 dark:border-white/5">
-                <div className="flex flex-col gap-2 min-w-[120px]">
-                  <span className="text-xs font-bold text-slate-500 uppercase tracking-widest">Frontend</span>
-                  {project.skills.frontend?.length > 0 && (
+      <div className="space-y-8">
+        <div className="space-y-3">
+          <h5 className="text-sm font-black uppercase tracking-widest text-blue-500">Tech Stack</h5>
+          <div className="flex flex-col gap-6 pt-2 text-left">
+            <div className="flex flex-wrap items-center gap-4 bg-slate-50 dark:bg-zinc-900/50 p-6 rounded-2xl border border-black/5 dark:border-white/5">
+              <div className="flex flex-col gap-2 min-w-[120px]">
+                <span className="text-xs font-bold text-slate-500 uppercase tracking-widest text-left">Frontend</span>
+                {project.skills.frontend?.length > 0 && (
+                  <div className="flex justify-start">
                     <FloatingDock items={project.skills.frontend} />
-                  )}
-                </div>
-                {project.skills.backend?.length > 0 && (
-                  <div className="flex flex-col gap-2 min-w-[120px] border-l border-black/10 dark:border-white/10 pl-4">
-                    <span className="text-xs font-bold text-slate-500 uppercase tracking-widest">Backend</span>
-                    <FloatingDock items={project.skills.backend} />
                   </div>
                 )}
               </div>
+              {project.skills.backend?.length > 0 && (
+                <div className="flex flex-col gap-2 min-w-[120px] border-l border-black/10 dark:border-white/10 pl-4">
+                  <span className="text-xs font-bold text-slate-500 uppercase tracking-widest text-left">Backend</span>
+                  <div className="flex justify-start">
+                    <FloatingDock items={project.skills.backend} />
+                  </div>
+                </div>
+              )}
             </div>
-          </div>
-
-          <div className="prose dark:prose-invert max-w-none">
-            {project.content}
           </div>
         </div>
 
-        <div className="relative group">
-          <div className="absolute -inset-4 bg-gradient-to-tr from-blue-500/20 to-purple-500/20 blur-2xl opacity-50 group-hover:opacity-100 transition-opacity duration-500" />
-          <div className="relative rounded-2xl overflow-hidden border border-black/10 dark:border-white/10 shadow-2xl bg-white dark:bg-black">
-            <Image
-              src={project.src}
-              alt={project.title}
-              width={800}
-              height={600}
-              className="w-full aspect-video object-cover"
-            />
-          </div>
+        <div className="prose dark:prose-invert max-w-none text-left">
+          {project.content}
         </div>
       </div>
     </div>

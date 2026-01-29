@@ -8,6 +8,7 @@ import React, {
   useEffect,
   useRef,
   useState,
+  useCallback,
 } from "react";
 import { ScrollArea } from "./scroll-area";
 
@@ -93,60 +94,54 @@ export const ModalBody = ({
     }
   }, [open]);
 
-  useOutsideClick(modalRef, () => setOpen(false));
+  const handleOutsideClick = useCallback(() => {
+    setOpen(false);
+  }, [setOpen]);
+
+  useOutsideClick(modalRef, handleOutsideClick);
 
   return (
     <AnimatePresence>
       {open && (
         <motion.div
-          initial={{
-            opacity: 0,
-          }}
-          animate={{
-            opacity: 1,
-            backdropFilter: "blur(10px)",
-          }}
-          exit={{
-            opacity: 0,
-            backdropFilter: "blur(0px)",
-          }}
-          className="modall fixed [perspective:800px] [transform-style:preserve-3d] inset-0 h-full w-full  flex items-center justify-center z-50"
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1, backdropFilter: "blur(10px)" }}
+          exit={{ opacity: 0, backdropFilter: "blur(0px)" }}
+          className="fixed inset-0 h-full w-full flex items-center justify-center z-[99999]"
         >
           <Overlay />
 
           <motion.div
             ref={modalRef}
             className={cn(
-              "min-h-[50%] max-h-[90%] md:max-w-[40%] bg-white dark:bg-neutral-950 border border-transparent dark:border-neutral-800 md:rounded-2xl relative z-50 flex flex-col flex-1 overflow-hidden",
+              "min-h-[50%] max-h-[90%] w-[95%] md:max-w-5xl bg-white dark:bg-neutral-950 border border-transparent dark:border-neutral-800 md:rounded-3xl relative z-[100000] flex flex-col overflow-hidden shadow-2xl",
               className
             )}
             initial={{
               opacity: 0,
-              scale: 0.5,
-              rotateX: 40,
-              y: 40,
+              scale: 0.9,
+              y: 20,
             }}
             animate={{
               opacity: 1,
               scale: 1,
-              rotateX: 0,
               y: 0,
             }}
             exit={{
               opacity: 0,
-              scale: 0.8,
-              rotateX: 10,
+              scale: 0.9,
+              y: 20,
             }}
             transition={{
               type: "spring",
-              stiffness: 260,
-              damping: 15,
+              stiffness: 300,
+              damping: 30,
             }}
           >
             <CloseIcon />
-            <ScrollArea className="h-[80dvh] w-full rounded-md border">
+            <div className="flex-1 overflow-y-auto no-scrollbar">
               {children}
-            </ScrollArea>
+            </div>
           </motion.div>
         </motion.div>
       )}
@@ -162,7 +157,7 @@ export const ModalContent = ({
   className?: string;
 }) => {
   return (
-    <div className={cn("flex flex-col flex-1 p-3 md:p-10", className)}>
+    <div className={cn("flex flex-col flex-1 p-6 md:p-12", className)}>
       {children}
     </div>
   );
@@ -178,7 +173,7 @@ export const ModalFooter = ({
   return (
     <div
       className={cn(
-        "flex justify-end p-4 bg-gray-100 dark:bg-neutral-900",
+        "flex justify-end p-6 bg-gray-50/50 dark:bg-neutral-900/50 backdrop-blur-sm border-t border-black/5 dark:border-white/5",
         className
       )}
     >
@@ -191,20 +186,18 @@ const Overlay = ({ className }: { className?: string }) => {
   const { setOpen } = useModal();
   return (
     <motion.div
-      initial={{
-        opacity: 0,
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      exit={{ opacity: 0 }}
+      className={cn(
+        "fixed inset-0 h-full w-full bg-black/60 z-[99998] backdrop-blur-md",
+        className
+      )}
+      onClick={(e) => {
+        e.stopPropagation();
+        setOpen(false);
       }}
-      animate={{
-        opacity: 1,
-        backdropFilter: "blur(10px)",
-      }}
-      exit={{
-        opacity: 0,
-        backdropFilter: "blur(0px)",
-      }}
-      className={`modal-overlay fixed inset-0 h-full w-full bg-black bg-opacity-50 z-50 ${className}`}
-      onClick={() => setOpen(false)}
-    ></motion.div>
+    />
   );
 };
 
@@ -212,46 +205,38 @@ const CloseIcon = () => {
   const { setOpen } = useModal();
   return (
     <button
-      onClick={() => setOpen(false)}
-      className="absolute top-4 right-4 group z-[100] bg-neutral-100 dark:bg-neutral-800 p-2 rounded-full hover:bg-neutral-200 dark:hover:bg-neutral-700 transition duration-200 shadow-sm"
+      onClick={(e) => {
+        e.stopPropagation();
+        setOpen(false);
+      }}
+      className="absolute top-6 right-6 group z-[100001] bg-black/50 hover:bg-black/80 dark:bg-white/10 dark:hover:bg-white/20 p-2.5 rounded-full transition-all duration-200 border border-white/10 shadow-xl active:scale-95"
     >
       <svg
         xmlns="http://www.w3.org/2000/svg"
-        width="24"
-        height="24"
+        width="20"
+        height="20"
         viewBox="0 0 24 24"
         fill="none"
         stroke="currentColor"
-        strokeWidth="2"
+        strokeWidth="2.5"
         strokeLinecap="round"
         strokeLinejoin="round"
-        className="text-black dark:text-white h-4 w-4 group-hover:rotate-90 transition duration-200"
+        className="text-white h-4 w-4 transition-transform group-hover:rotate-90"
       >
-        <path stroke="none" d="M0 0h24v24H0z" fill="none" />
-        <path d="M18 6l-12 12" />
+        <path d="M18 6L6 18" />
         <path d="M6 6l12 12" />
       </svg>
     </button>
   );
 };
 
-// Hook to detect clicks outside of a component.
-// Add it in a separate file, I've added here for simplicity
 export const useOutsideClick = (
   ref: React.RefObject<HTMLDivElement>,
   callback: Function
 ) => {
   useEffect(() => {
-    const listener = (
-      event: any
-      //  React.MouseEvent<HTMLDivElement> | React.TouchEvent<HTMLDivElement>
-    ) => {
-      // DO NOTHING if the element being clicked is the target element or their children
-      if (
-        !ref.current ||
-        ref.current.contains(event.target) ||
-        !event.target.classList.contains("no-click-outside")
-      ) {
+    const listener = (event: any) => {
+      if (!ref.current || ref.current.contains(event.target)) {
         return;
       }
       callback(event);
