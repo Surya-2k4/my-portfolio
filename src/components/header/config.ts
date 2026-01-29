@@ -12,6 +12,11 @@ const links: Link[] = [
     thumbnail: '/assets/nav-link-previews/about.png'
   },
   {
+    title: 'Experience',
+    href: '/#experience',
+    thumbnail: '/assets/nav-link-previews/about.png' // Reusing about preview or generic
+  },
+  {
     title: 'Skills',
     href: '/#skills',
     thumbnail: '/assets/nav-link-previews/skills.png'
@@ -21,16 +26,6 @@ const links: Link[] = [
     href: '/#projects',
     thumbnail: '/assets/nav-link-previews/projects.png'
   },
-  // {
-  //   title: 'Skills',
-  //   href: '/skills',
-  //   thumbnail: '/assets/nav-link-previews/skills.png'
-  // },
-  // {
-  //   title: 'Testimonials',
-  //   href: '/testimonials',
-  //   thumbnail: '/assets/nav-link-previews/testimonials.png'
-  // },
   {
     title: 'Contact',
     href: '/#contact',

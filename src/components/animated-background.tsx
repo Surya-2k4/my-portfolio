@@ -46,6 +46,26 @@ const STATES = {
       },
     },
   },
+  experience: {
+    desktop: {
+      scale: { x: 0.4, y: 0.4, z: 0.4 },
+      position: { x: 0, y: -40, z: 0 },
+      rotation: {
+        x: 0,
+        y: -Math.PI / 12, // Slight tilt the other way for variety
+        z: 0,
+      },
+    },
+    mobile: {
+      scale: { x: 0.2, y: 0.2, z: 0.2 },
+      position: { x: 0, y: -40, z: 0 },
+      rotation: {
+        x: 0,
+        y: -Math.PI / 6,
+        z: 0,
+      },
+    },
+  },
   skills: {
     desktop: {
       scale: { x: 0.4, y: 0.4, z: 0.4 },
@@ -108,7 +128,7 @@ const STATES = {
   },
 };
 
-type Section = "hero" | "about" | "skills" | "projects" | "contact";
+type Section = "hero" | "about" | "experience" | "skills" | "projects" | "contact";
 
 const AnimatedBackground = () => {
   const { isLoading, bypassLoading } = usePreloader();
@@ -142,8 +162,12 @@ const AnimatedBackground = () => {
         splineApp.setVariable("desc", "");
       }
     } else {
-      const skill = SKILLS[e.target.name as SkillNames];
-      if (skill) {
+      // Robust case-insensitive name matching
+      const targetName = e.target.name.toLowerCase().trim();
+      const skillKey = Object.keys(SKILLS).find(key => key.toLowerCase() === targetName);
+
+      if (skillKey) {
+        const skill = SKILLS[skillKey];
         setSelectedSkill(skill);
       }
     }
@@ -286,8 +310,12 @@ const AnimatedBackground = () => {
     });
     splineApp.addEventListener("keyDown", (e) => {
       if (!splineApp) return;
-      const skill = SKILLS[e.target.name as SkillNames];
-      if (skill) {
+      // Case-insensitive key mapping
+      const targetName = e.target.name.toLowerCase().trim();
+      const skillKey = Object.keys(SKILLS).find(key => key.toLowerCase() === targetName);
+
+      if (skillKey) {
+        const skill = SKILLS[skillKey];
         setSelectedSkill(skill);
         splineApp.setVariable("heading", skill.label);
         splineApp.setVariable("desc", skill.shortDescription);
@@ -306,6 +334,52 @@ const AnimatedBackground = () => {
     gsap.set(kbd.position, {
       ...keyboardStates("hero").position,
     });
+
+    // About Timeline
+    gsap.timeline({
+      scrollTrigger: {
+        trigger: "#about",
+        start: "top 50%",
+        end: "bottom bottom",
+        scrub: true,
+        onEnter: () => {
+          setActiveSection("about");
+          gsap.to(kbd.scale, { ...keyboardStates("about").scale, duration: 1 });
+          gsap.to(kbd.position, { ...keyboardStates("about").position, duration: 1 });
+          gsap.to(kbd.rotation, { ...keyboardStates("about").rotation, duration: 1 });
+        },
+        onLeaveBack: () => {
+          setActiveSection("hero");
+          gsap.to(kbd.scale, { ...keyboardStates("hero").scale, duration: 1 });
+          gsap.to(kbd.position, { ...keyboardStates("hero").position, duration: 1 });
+          gsap.to(kbd.rotation, { ...keyboardStates("hero").rotation, duration: 1 });
+        },
+      },
+    });
+
+    // Experience Timeline
+    gsap.timeline({
+      scrollTrigger: {
+        trigger: "#experience",
+        start: "top 50%",
+        end: "bottom bottom",
+        scrub: true,
+        onEnter: () => {
+          setActiveSection("experience");
+          gsap.to(kbd.scale, { ...keyboardStates("experience").scale, duration: 1 });
+          gsap.to(kbd.position, { ...keyboardStates("experience").position, duration: 1 });
+          gsap.to(kbd.rotation, { ...keyboardStates("experience").rotation, duration: 1 });
+        },
+        onLeaveBack: () => {
+          setActiveSection("about");
+          gsap.to(kbd.scale, { ...keyboardStates("about").scale, duration: 1 });
+          gsap.to(kbd.position, { ...keyboardStates("about").position, duration: 1 });
+          gsap.to(kbd.rotation, { ...keyboardStates("about").rotation, duration: 1 });
+        },
+      },
+    });
+
+    // Skills Timeline
     gsap.timeline({
       scrollTrigger: {
         trigger: "#skills",
@@ -328,19 +402,15 @@ const AnimatedBackground = () => {
           });
         },
         onLeaveBack: () => {
-          setActiveSection("hero");
-          gsap.to(kbd.scale, { ...keyboardStates("hero").scale, duration: 1 });
-          gsap.to(kbd.position, {
-            ...keyboardStates("hero").position,
-            duration: 1,
-          });
-          gsap.to(kbd.rotation, {
-            ...keyboardStates("hero").rotation,
-            duration: 1,
-          });
+          setActiveSection("experience");
+          gsap.to(kbd.scale, { ...keyboardStates("experience").scale, duration: 1 });
+          gsap.to(kbd.position, { ...keyboardStates("experience").position, duration: 1 });
+          gsap.to(kbd.rotation, { ...keyboardStates("experience").rotation, duration: 1 });
         },
       },
     });
+
+    // Projects Timeline
     gsap.timeline({
       scrollTrigger: {
         trigger: "#projects",
@@ -379,6 +449,8 @@ const AnimatedBackground = () => {
         },
       },
     });
+
+    // Contact Timeline
     gsap.timeline({
       scrollTrigger: {
         trigger: "#contact",
