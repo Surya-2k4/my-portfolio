@@ -69,16 +69,16 @@ const StickyProjectCard = ({
   return (
     <div
       ref={containerRef}
-      className="h-[100vh] flex items-center justify-center sticky top-0"
+      className="h-[60vh] sm:h-[80vh] md:h-[100vh] flex items-center justify-center sticky top-0 md:top-0"
     >
       <motion.div
         style={{
           scale,
           opacity,
           zIndex: index,
-          top: `calc(10% + ${index * 20}px)`,
+          top: `calc(5% + ${index * 15}px)`,
         }}
-        className="w-full max-w-5xl"
+        className="w-full max-w-5xl px-2 sm:px-4"
       >
         <Modall project={project} />
       </motion.div>
@@ -92,7 +92,7 @@ const Modall = ({ project }: { project: Project }) => {
       <Modal>
         <ModalTrigger className="bg-transparent flex justify-center group/modal-btn w-full p-0 border-none">
           <div
-            className="relative w-full aspect-[16/9] md:aspect-[21/9] rounded-3xl overflow-hidden shadow-2xl border border-black/5 dark:border-white/10 group/card bg-white dark:bg-zinc-900"
+            className="relative w-full aspect-[4/3] sm:aspect-[16/9] md:aspect-[21/9] rounded-2xl md:rounded-3xl overflow-hidden shadow-2xl border border-black/5 dark:border-white/10 group/card bg-white dark:bg-zinc-900"
           >
             <Image
               className="absolute w-full h-full object-cover top-0 left-0 transition-transform duration-700 group-hover/card:scale-110"
@@ -109,14 +109,14 @@ const Modall = ({ project }: { project: Project }) => {
                   whileInView={{ opacity: 1, x: 0 }}
                   transition={{ delay: 0.2 }}
                 >
-                  <div className="text-sm md:text-base font-bold text-blue-400 mb-2 uppercase tracking-widest leading-none">
+                  <div className="text-[10px] md:text-base font-bold text-blue-400 mb-1 md:mb-2 uppercase tracking-widest leading-none">
                     {project.category}
                   </div>
-                  <h3 className="text-3xl md:text-6xl font-black text-white mb-4 tracking-tighter uppercase leading-none">
+                  <h3 className="text-2xl sm:text-3xl md:text-6xl font-black text-white mb-2 md:mb-4 tracking-tighter uppercase leading-none">
                     {project.title}
                   </h3>
                   <div className="flex items-center gap-4 text-white/70 group-hover/modal-btn:text-white transition-colors">
-                    <span className="text-sm font-bold uppercase tracking-widest border border-white/20 px-3 py-1 rounded-full bg-white/10 backdrop-blur-sm">
+                    <span className="text-[10px] sm:text-sm font-bold uppercase tracking-widest border border-white/20 px-2 sm:px-3 py-1 rounded-full bg-white/10 backdrop-blur-sm">
                       View Project Details
                     </span>
                   </div>
@@ -176,19 +176,19 @@ const ProjectContents = ({ project }: { project: Project }) => {
         <div className="space-y-3">
           <h5 className="text-sm font-black uppercase tracking-widest text-blue-500">Tech Stack</h5>
           <div className="flex flex-col gap-6 pt-2 text-left">
-            <div className="flex flex-wrap items-center gap-4 bg-slate-50 dark:bg-zinc-900/50 p-6 rounded-2xl border border-black/5 dark:border-white/5">
+            <div className="flex flex-col sm:flex-row sm:items-center gap-6 sm:gap-4 bg-slate-50 dark:bg-zinc-900/50 p-4 md:p-6 rounded-2xl border border-black/5 dark:border-white/5">
               <div className="flex flex-col gap-2 min-w-[120px]">
                 <span className="text-xs font-bold text-slate-500 uppercase tracking-widest text-left">Frontend</span>
                 {project.skills.frontend?.length > 0 && (
-                  <div className="flex justify-start">
+                  <div className="flex justify-start overflow-x-auto no-scrollbar pb-2 sm:pb-0">
                     <FloatingDock items={project.skills.frontend} />
                   </div>
                 )}
               </div>
               {project.skills.backend?.length > 0 && (
-                <div className="flex flex-col gap-2 min-w-[120px] border-l border-black/10 dark:border-white/10 pl-4">
+                <div className="flex flex-col gap-2 min-w-[120px] sm:border-l border-black/10 dark:border-white/10 sm:pl-4">
                   <span className="text-xs font-bold text-slate-500 uppercase tracking-widest text-left">Backend</span>
-                  <div className="flex justify-start">
+                  <div className="flex justify-start overflow-x-auto no-scrollbar pb-2 sm:pb-0">
                     <FloatingDock items={project.skills.backend} />
                   </div>
                 </div>

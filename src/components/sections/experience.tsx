@@ -14,7 +14,7 @@ const ExperienceSection = () => {
                         <BoxReveal width="100%" boxColor="#3b82f6">
                             <h2
                                 className={cn(
-                                    "bg-clip-text text-5xl text-center text-transparent md:text-8xl font-black tracking-tighter",
+                                    "bg-clip-text text-4xl sm:text-5xl text-center text-transparent md:text-8xl font-black tracking-tighter",
                                     "bg-gradient-to-b from-black/80 to-black/40",
                                     "dark:bg-gradient-to-b dark:from-white/90 dark:to-white/30"
                                 )}
@@ -30,28 +30,28 @@ const ExperienceSection = () => {
                         <div className="group relative overflow-hidden rounded-3xl border border-black/10 dark:border-white/10 bg-white/40 dark:bg-black/40 backdrop-blur-xl p-8 md:p-12 transition-all duration-500 shadow-[0_0_50px_-12px_rgba(0,0,0,0.5)] dark:shadow-[0_0_50px_-12px_rgba(255,255,255,0.1)] hover:border-blue-500/50">
                             <div className="flex flex-col md:flex-row md:items-start gap-10">
                                 {/* Logo with explicit background */}
-                                <div className="relative flex-shrink-0 w-28 h-28 rounded-2xl bg-white flex items-center justify-center border border-black/10 shadow-xl group-hover:scale-110 transition-transform duration-500 overflow-hidden z-20">
+                                <div className="relative flex-shrink-0 w-20 h-20 md:w-28 md:h-28 rounded-2xl bg-white flex items-center justify-center border border-black/10 shadow-xl group-hover:scale-110 transition-transform duration-500 overflow-hidden z-20 mx-auto md:mx-0">
                                     <Image
                                         src="/assets/bi3-logo.png"
                                         alt="BI3 Technologies"
                                         width={112}
                                         height={112}
-                                        className="object-contain p-3"
+                                        className="object-contain p-2 md:p-3"
                                     />
                                 </div>
 
                                 <div className="flex-grow space-y-6 text-left relative z-20">
                                     <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
-                                        <h3 className="text-3xl md:text-4xl font-extrabold text-slate-900 dark:text-white tracking-tight">
+                                        <h3 className="text-2xl md:text-4xl font-extrabold text-slate-900 dark:text-white tracking-tight">
                                             System and Cloud Admin
                                         </h3>
-                                        <div className="inline-flex items-center rounded-full bg-blue-500/10 px-4 py-1.5 text-sm font-bold text-blue-600 dark:text-blue-400 border border-blue-500/20 whitespace-nowrap">
+                                        <div className="inline-flex items-center rounded-full bg-blue-500/10 px-4 py-1.5 text-xs md:text-sm font-bold text-blue-600 dark:text-blue-400 border border-blue-500/20 whitespace-nowrap self-start">
                                             Full-time
                                         </div>
                                     </div>
 
                                     <div className="space-y-3">
-                                        <div className="flex items-center text-xl md:text-2xl font-bold text-slate-800 dark:text-slate-200">
+                                        <div className="flex items-center text-lg md:text-2xl font-bold text-slate-800 dark:text-slate-200">
                                             <span className="text-blue-500 mr-2">@</span>
                                             BI3 Technologies
                                         </div>
@@ -69,7 +69,7 @@ const ExperienceSection = () => {
                                     </div>
 
                                     <div className="pt-6 border-t border-black/10 dark:border-white/10 space-y-6">
-                                        <p className="text-lg text-slate-700 dark:text-slate-300 leading-relaxed font-medium">
+                                        <p className="text-base md:text-lg text-slate-700 dark:text-slate-300 leading-relaxed font-medium">
                                             Spearheading cloud infrastructure management and system administration.
                                             Focusing on high availability, performance optimization, and implementing
                                             automated deployment pipelines to drive operational excellence.
