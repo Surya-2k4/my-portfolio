@@ -587,6 +587,46 @@ const projects: Project[] = [
       );
     },
   },
+  {
+    id: "tripsplit",
+    category: "Finance & Management",
+    title: "TripSplit",
+    src: "https://raw.githubusercontent.com/Surya-2k4/TripSplit/main/preview.png", // Attempting a standard preview path, if fails will fallback
+    screenshots: [
+      "https://raw.githubusercontent.com/Surya-2k4/TripSplit/main/preview.png",
+    ],
+    skills: {
+      frontend: [
+        PROJECT_SKILLS.html,
+        PROJECT_SKILLS.css,
+        PROJECT_SKILLS.js,
+      ],
+      backend: [],
+    },
+    live: "https://tripsplit-lake.vercel.app",
+    github: "https://github.com/Surya-2k4/TripSplit",
+    get content() {
+      return (
+        <div>
+          <TypographyP className="font-mono text-2xl text-center">
+            TripSplit ✈️💰
+          </TypographyP>
+          <TypographyP className="font-mono ">
+            TripSplit is a simple and intuitive web application that helps users manage, split, and settle group travel expenses fairly. It removes the hassle of manual calculations and makes group expense tracking transparent and easy.
+          </TypographyP>
+          <ProjectsLinks live={this.live} repo={this.github} />
+          <TypographyH3 className="my-4 mt-8">Features</TypographyH3>
+          <ul className="list-disc ml-6 font-mono mb-4">
+            <li><strong>Trip Management:</strong> Create and manage multiple group trips seamlessly.</li>
+            <li><strong>Participant Tracking:</strong> Add group members and track their individual spending.</li>
+            <li><strong>Automated Splitting:</strong> Calculate exactly how much everyone owes with zero effort.</li>
+            <li><strong>Settlement Logic:</strong> Clearly identifies &quot;who owes whom&quot; to resolve debts instantly.</li>
+            <li><strong>Responsive Design:</strong> Clean, mobile-friendly interface for tracking expenses on the go.</li>
+          </ul>
+        </div>
+      );
+    },
+  },
 ];
 export default projects;
 
