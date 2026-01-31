@@ -1,6 +1,6 @@
 "use client";
 import Image from "next/image";
-import React, { useRef } from "react";
+import React from "react";
 import {
   Modal,
   ModalBody,
@@ -11,7 +11,8 @@ import {
 } from "../ui/animated-modal";
 import { FloatingDock } from "../ui/floating-dock";
 import Link from "next/link";
-import { motion, useScroll, useTransform } from "framer-motion";
+import { motion } from "framer-motion";
+import { BoxReveal } from "../reveal-animations";
 
 import projects, { Project } from "@/data/projects";
 import { cn } from "@/lib/utils";
@@ -19,122 +20,87 @@ import { cn } from "@/lib/utils";
 const ProjectsSection = () => {
   return (
     <section id="projects" className="max-w-7xl mx-auto py-20 px-4">
-      <Link href={"#projects"}>
-        <motion.h2
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          className={cn(
-            "bg-clip-text text-5xl text-center text-transparent md:text-8xl font-black pt-16 mb-24",
-            "bg-gradient-to-b from-black/80 to-black/50",
-            "dark:bg-gradient-to-b dark:from-white/90 dark:to-white/40"
-          )}
-        >
-          PROJECTS
-        </motion.h2>
-      </Link>
-      <div className="flex flex-col gap-24 md:gap-0 relative">
+      <div className="flex flex-col items-center justify-center space-y-4 text-center mb-16">
+        <Link href={"#projects"}>
+          <BoxReveal width="100%" boxColor="#3b82f6">
+            <h2
+              className={cn(
+                "bg-clip-text text-4xl sm:text-5xl text-center text-transparent md:text-8xl font-black tracking-tighter",
+                "bg-gradient-to-b from-black/80 to-black/40",
+                "dark:bg-gradient-to-b dark:from-white/90 dark:to-white/30"
+              )}
+            >
+              PROJECTS
+            </h2>
+          </BoxReveal>
+        </Link>
+      </div>
+      <div className="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 px-4">
         {projects.map((project, index) => (
-          <StickyProjectCard
-            key={project.id}
-            project={project}
-            index={index}
-            total={projects.length}
-          />
+          <BoxReveal key={project.id} width="100%" delay={0.2 + index * 0.1} boxColor="#3b82f6">
+            <ProjectCard
+              project={project}
+            />
+          </BoxReveal>
         ))}
       </div>
     </section>
   );
 };
 
-const StickyProjectCard = ({
-  project,
-  index,
-  total
-}: {
-  project: Project;
-  index: number;
-  total: number
-}) => {
-  const containerRef = useRef<HTMLDivElement>(null);
-
-  const { scrollYProgress } = useScroll({
-    target: containerRef,
-    offset: ["start end", "start start"],
-  });
-
-  const scale = useTransform(scrollYProgress, [0, 1], [0.8, 1]);
-  const opacity = useTransform(scrollYProgress, [0, 1], [0.6, 1]);
-
+const ProjectCard = ({ project }: { project: Project }) => {
   return (
-    <div
-      ref={containerRef}
-      className="h-[60vh] sm:h-[80vh] md:h-[100vh] flex items-center justify-center sticky top-0 md:top-0"
-    >
-      <motion.div
-        style={{
-          scale,
-          opacity,
-          zIndex: index,
-          top: `calc(5% + ${index * 15}px)`,
-        }}
-        className="w-full max-w-5xl px-2 sm:px-4"
-      >
-        <Modall project={project} />
-      </motion.div>
-    </div>
-  );
-};
-
-const Modall = ({ project }: { project: Project }) => {
-  return (
-    <div className="flex items-center justify-center w-full h-full">
-      <Modal>
-        <ModalTrigger className="bg-transparent flex justify-center group/modal-btn w-full p-0 border-none">
-          <div
-            className="relative w-full aspect-[4/3] sm:aspect-[16/9] md:aspect-[21/9] rounded-2xl md:rounded-3xl overflow-hidden shadow-2xl border border-black/5 dark:border-white/10 group/card bg-white dark:bg-zinc-900"
-          >
+    <Modal>
+      <ModalTrigger className="bg-transparent flex justify-center group/modal-btn w-full p-0 border-none text-left h-full">
+        <div className="group relative overflow-hidden rounded-3xl border border-black/10 dark:border-white/10 bg-white/40 dark:bg-black/40 backdrop-blur-xl p-5 md:p-6 transition-all duration-500 shadow-[0_0_50px_-12px_rgba(0,0,0,0.5)] dark:shadow-[0_0_50px_-12px_rgba(255,255,255,0.1)] hover:border-blue-500/50 w-full flex flex-col h-full min-h-[450px]">
+          <div className="relative w-full aspect-[16/10] rounded-2xl overflow-hidden border border-black/10 shadow-xl group-hover:scale-[1.02] transition-transform duration-500 mb-6 flex-shrink-0">
             <Image
-              className="absolute w-full h-full object-cover top-0 left-0 transition-transform duration-700 group-hover/card:scale-110"
               src={project.src}
               alt={project.title}
-              width={1200}
-              height={800}
+              fill
+              className="object-cover"
             />
-            {/* Overlay */}
-            <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/40 to-transparent opacity-100 transition-opacity duration-500">
-              <div className="flex flex-col h-full items-start justify-end p-8 md:p-12 text-left">
-                <motion.div
-                  initial={{ opacity: 0, x: -20 }}
-                  whileInView={{ opacity: 1, x: 0 }}
-                  transition={{ delay: 0.2 }}
-                >
-                  <div className="text-[10px] md:text-base font-bold text-blue-400 mb-1 md:mb-2 uppercase tracking-widest leading-none">
-                    {project.category}
-                  </div>
-                  <h3 className="text-2xl sm:text-3xl md:text-6xl font-black text-white mb-2 md:mb-4 tracking-tighter uppercase leading-none">
-                    {project.title}
-                  </h3>
-                  <div className="flex items-center gap-4 text-white/70 group-hover/modal-btn:text-white transition-colors">
-                    <span className="text-[10px] sm:text-sm font-bold uppercase tracking-widest border border-white/20 px-2 sm:px-3 py-1 rounded-full bg-white/10 backdrop-blur-sm">
-                      View Project Details
-                    </span>
-                  </div>
-                </motion.div>
+          </div>
+
+          <div className="flex-grow flex flex-col space-y-3">
+            <div className="flex flex-col gap-1">
+              <div className="text-[10px] md:text-xs font-bold text-blue-500 uppercase tracking-widest">
+                {project.category}
+              </div>
+              <h3 className="text-xl md:text-2xl font-extrabold text-slate-900 dark:text-white tracking-tight line-clamp-2">
+                {project.title}
+              </h3>
+            </div>
+
+            <div className="pt-4 mt-auto border-t border-black/10 dark:border-white/10">
+              <div className="flex flex-wrap gap-2">
+                {[...(project.skills.frontend || []), ...(project.skills.backend || [])].slice(0, 4).map((skill, idx) => (
+                  <span key={idx} className="px-3 py-1 text-[10px] font-bold rounded-lg bg-black/5 dark:bg-white/10 text-slate-700 dark:text-slate-300 border border-black/5 dark:border-white/5 uppercase tracking-widest">
+                    {skill.title}
+                  </span>
+                ))}
+                {([...(project.skills.frontend || []), ...(project.skills.backend || [])].length > 4) && (
+                  <span className="px-2 py-1 text-[10px] font-bold text-slate-400">
+                    +{[...(project.skills.frontend || []), ...(project.skills.backend || [])].length - 4}
+                  </span>
+                )}
               </div>
             </div>
           </div>
-        </ModalTrigger>
-        <ModalBody className="md:max-w-5xl md:max-h-[85vh]">
-          <ModalContent>
-            <ProjectContents project={project} />
-          </ModalContent>
-          <ModalFooter className="gap-4 border-t border-black/5 dark:border-white/10 bg-white/80 dark:bg-zinc-950/80 backdrop-blur-md sticky bottom-0 z-50">
-            <ModalFooterButtons project={project} />
-          </ModalFooter>
-        </ModalBody>
-      </Modal>
-    </div>
+
+          {/* Decorative side effect */}
+          <div className="absolute -top-24 -right-24 w-64 h-64 bg-blue-500/10 blur-[100px] pointer-events-none rounded-full" />
+        </div>
+      </ModalTrigger>
+      <ModalBody className="md:max-w-5xl md:max-h-[85vh]">
+        <ModalContent>
+          <ProjectContents project={project} />
+        </ModalContent>
+        <ModalFooter className="gap-4 border-t border-black/5 dark:border-white/10 bg-white/80 dark:bg-zinc-950/80 backdrop-blur-md sticky bottom-0 z-50">
+          <ModalFooterButtons project={project} />
+        </ModalFooter>
+      </ModalBody>
+    </Modal>
   );
 };
 
