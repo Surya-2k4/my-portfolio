@@ -4,7 +4,7 @@
 
 Welcome to the repository for my personal portfolio website! 🎉 This project is a culmination of creativity, technology, and my dedication to showcasing my skills, projects, and personality in a visually stunning and interactive manner.
 
-### Live preview: https://my-portfolio-surya.vercel.app/ (Replace with your actual Vercel URL)
+### Live preview: https://my-portfolio-git-main-suryas-projects-10de6104.vercel.app/#about
 
 ![Preview](https://github.com/Surya-2k4/my-portfolio/blob/main/public/assets/preview_video.gif?raw=true)
 
